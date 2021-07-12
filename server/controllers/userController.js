@@ -2,6 +2,52 @@ const db = require('../models/userModels');
 
 const userController = {};
 
+userController.newUser = (req, res, next) => {
+  const { _id, name, username, password } = req.body;
+  const newUserQuery = `INSERT INTO users (_id, name, points, username, password)
+  VALUES ($1, $2, $3, $4, $5)`;
+  const params = [_id, name, 100, username, password];
+  db.query(newUserQuery, params)
+    .then((result) => {
+      res.locals.userTable = result.rows[0];
+      return next();
+    })
+    .catch((err) =>
+      next(
+        JSON.stringify({
+          log: `userController.newUser: ERROR: ${err}`,
+          message: {
+            err: 'Error occured in userController.newUser. Check server logs for more details',
+          },
+        })
+      )
+    );
+};
+
+userController.checkUser = (req, res, next) => {
+  // console.log('Do we enter getRecipients function?');
+  const userQuery =
+    'SELECT username, password FROM users WHERE username = $1 AND password = $2';
+  const { username, password } = req.body;
+  const params = [username, password];
+  // console.log('stering of recipQuery: ' + recipQuery);
+  db.query(userQuery, params)
+    .then((data) => {
+      // console.log('we did it! cool');
+      res.locals.users = data.rows;
+      // console.log('list of names: ' + res.locals.recipients);
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: `userController.checkUser: ERROR: ${err}`,
+        message: {
+          err: 'Error occured in userController.checkUser. Check server logs for more details.',
+        },
+      });
+    });
+};
+
 userController.getRecipients = (req, res, next) => {
   // console.log('Do we enter getRecipients function?');
   const recipQuery = 'SELECT _id, name FROM users';
@@ -76,9 +122,9 @@ userController.addPoints = (req, res, next) => {
     })
     .catch((err) => {
       return next({
-        log: `userController.postFeed: ERROR: ${err}`,
+        log: `userController.addPoints: ERROR: ${err}`,
         message: {
-          err: 'Error occured in userController.postFeed. Check server logs for more details',
+          err: 'Error occured in userController.addPoints Check server logs for more details',
         },
       });
     });
@@ -96,9 +142,9 @@ userController.subtractPoints = (req, res, next) => {
     })
     .catch((err) => {
       return next({
-        log: `userController.postFeed: ERROR: ${err}`,
+        log: `userController.subtractPoints: ERROR: ${err}`,
         message: {
-          err: 'Error occured in userController.postFeed. Check server logs for more details',
+          err: 'Error occured in userController.subtractPoints. Check server logs for more details',
         },
       });
     });

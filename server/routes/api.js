@@ -27,4 +27,12 @@ router.patch(
   (req, res) => res.status(200).send('Something happened. Yay!')
 );
 
+router.post('/create', userController.newUser, (req, res) =>
+  res.status(200).json(res.locals.userTable)
+);
+
+router.get('/login', userController.checkUser, (req, res) =>
+  res.status(200).json(res.locals.users)
+);
+
 module.exports = router;
