@@ -22,7 +22,7 @@ class FeedItem extends Component {
         <h3>{this.props.attributes.sender}</h3>
         <div>
           <p>
-            {this.props.attributes.text} to {this.props.attributes.recipient}
+            {this.props.attributes.messages} to {this.props.attributes.recipient}
           </p>
         </div>
       </div>
