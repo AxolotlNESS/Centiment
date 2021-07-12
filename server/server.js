@@ -10,10 +10,6 @@ const PORT = 3000;
 
 app.use(express.static(path.resolve(__dirname, '../src')));
 
-// app.get('/', userController.getRecipients, (req, res) =>
-//   //go back and console log res.locals.recipients
-//   res.status(200).json([...res.locals.recipients])
-// );
 app.use('/api', apiRouter);
 
 app.listen(PORT, () => {

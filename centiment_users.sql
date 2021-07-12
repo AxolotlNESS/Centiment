@@ -22,12 +22,12 @@ CREATE TABLE public.users (
 );
 
 CREATE TABLE public.shoutouts (
-	"_id" AUTO_INCREMENT = 1,
+	"_id" serial,
     "sender" varchar NOT NULL,
-    "recipient_id" serial NOT NULL,
+    "recipient_id" integer NOT NULL,
 	"points" integer NOT NULL,
   "messages" varchar NOT NULL,
-    "sender_id" serial NOT NULL,
+    "sender_id" integer NOT NULL,
 	CONSTRAINT "shoutouts_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE

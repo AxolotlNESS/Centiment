@@ -42,6 +42,68 @@ userController.getFeed = (req, res, next) => {
       });
     });
 };
+
+userController.postFeed = (req, res, next) => {
+  const { sender, recipient_id, points, messages, sender_id } = req.body;
+  const queryPostToFeed = `INSERT INTO shoutouts (sender, recipient_id, points, messages, sender_id) 
+    VALUES ($1, $2, $3, $4, $5)`;
+  const params = [sender, recipient_id, points, messages, sender_id];
+  db.query(queryPostToFeed, params)
+    .then((result) => {
+      res.locals.shoutoutFeed = result.rows[0];
+      return next();
+    })
+    .catch((err) =>
+      next(
+        JSON.stringify({
+          log: `userController.postFeed: ERROR: ${err}`,
+          message: {
+            err: 'Error occured in userController.postFeed. Check server logs for more details',
+          },
+        })
+      )
+    );
+};
+
+userController.addPoints = (req, res, next) => {
+  const { recipient_id, points } = req.body;
+  const addPointsQuery = 'UPDATE users SET points = points + $1 WHERE _id = $2';
+  const params = [points, recipient_id];
+  db.query(addPointsQuery, params)
+    .then((result) => {
+      res.locals.pointsRecieved = result.rows[0];
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: `userController.postFeed: ERROR: ${err}`,
+        message: {
+          err: 'Error occured in userController.postFeed. Check server logs for more details',
+        },
+      });
+    });
+};
+
+userController.subtractPoints = (req, res, next) => {
+  const { sender_id, points } = req.body;
+  const subtractPointsQuery =
+    'UPDATE users SET points = points - $1 WHERE _id = $2';
+  const params = [points, sender_id];
+  db.query(subtractPointsQuery, params)
+    .then((result) => {
+      res.locals.pointsSent = result.rows[0];
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: `userController.postFeed: ERROR: ${err}`,
+        message: {
+          err: 'Error occured in userController.postFeed. Check server logs for more details',
+        },
+      });
+    });
+};
+
 // console.log(JSON.stringify(userController));
 // console.log(userController.getRecipients);
 module.exports = userController;
