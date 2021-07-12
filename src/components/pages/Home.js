@@ -8,13 +8,13 @@ class Home extends Component {
 
     this.state = {
       currentFeed: [
-        { sender: "Spencer", text: "thank you", recipient: "Nick" },
+        { sender: "Spencer", messages: "thank you", recipient: "Nick" },
       ],
       msg: "",
       points: 0,
-      user: {username: "Spencer", userID: 3},
-      rec: "",
-      potRec: [{username: "Emma", userID: 2}, {username: "Sean", userID: 4},{username: "Spencer", userID: 3}, {username: "Nick", userID: 1}],
+      user: {name: "Spencer", _id: 3},
+      rec: {},
+      potRec: [{"_id":1,"name":"Nick"},{"_id":2,"name":"Emma"},{"_id":3,"name":"Sean"}],
     };
   }
 
@@ -27,7 +27,7 @@ class Home extends Component {
         })
       })
       .catch(err => console.log('Error in get potentential reciepients: ', err))
-    fetch("/FEEEEEED")
+    fetch("/api/feed")
       .then(res => res.json())
       .then((feed)=>{
         this.setState({
@@ -64,16 +64,19 @@ class Home extends Component {
 
   submit(e){
     e.preventDefault();
-    fetch("/FEEEEEEEED", {
+    fetch("/api/feed", {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON'
       },
       body: JSON.stringify({
-        message: this.state.msg, 
+        sender: this.state.user.name,
+        recipient_id: this.state.rec._id,
         points: this.state.points,
-        userID: this.state.user.userID,
-        userName: this.state.user.username
+        messages: this.state.msg, 
+        // datetime_created: this.state.datetime_created,
+        sender_id: this.state.user._id,
+        recipient: this.state.rec,
       })
     })
       .then()
@@ -82,7 +85,7 @@ class Home extends Component {
   render() {
     const potRecc = [];
     this.state.potRec.forEach((el) => {
-      potRecc.push(<option value={el.username}> {el.username} </option>);
+      potRecc.push(<option value={el.name} id={el._id}> {el.name} </option>);
     });
     return (
       <div className="Home">
