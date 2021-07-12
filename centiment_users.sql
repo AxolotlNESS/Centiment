@@ -11,7 +11,7 @@ SET row_security = off;
 
 
 CREATE TABLE public.users (
-	"_id" serial NOT NULL,
+	"_id" serial UNIQUE NOT NULL,
 	"name" varchar NOT NULL,
 	"points" integer NOT NULL,
     "username" varchar NOT NULL,
@@ -22,12 +22,11 @@ CREATE TABLE public.users (
 );
 
 CREATE TABLE public.shoutouts (
-	"_id" serial NOT NULL,
+	"_id" AUTO_INCREMENT = 1,
     "sender" varchar NOT NULL,
     "recipient_id" serial NOT NULL,
 	"points" integer NOT NULL,
   "messages" varchar NOT NULL,
-    "datetime_created" integer,
     "sender_id" serial NOT NULL,
 	CONSTRAINT "shoutouts_pk" PRIMARY KEY ("_id")
 ) WITH (
@@ -39,7 +38,7 @@ INSERT INTO public.users VALUES (1, 'Nick', 100, 'nick123', '123');
 
 INSERT INTO public.users VALUES (2, 'Emma', 100, 'emma123', '1234');
 
-INSERT INTO public.users VALUES (3,'Sean',100, 'sean123', '12345');
+INSERT INTO public.users VALUES (3,'Sean', 100, 'sean123', '12345');
 
 INSERT INTO public.users VALUES (4, 'Spencer', 100, 'spencer123', '123456');
 
@@ -83,6 +82,6 @@ INSERT INTO public.users VALUES (4, 'Spencer', 100, 'spencer123', '123456');
 
 -- INSERT INTO public.users VALUES (24, 'Olivia', 100);
 
-INSERT INTO public.shoutouts VALUES (1, 'Emma', 4, 20,'Very cool',5,2);
+INSERT INTO public.shoutouts VALUES (1, 'Emma', 4, 20,'Very cool', 2);
 
 -- SELECT *, users.name AS recipient FROM shoutouts LEFT JOIN users ON shoutouts.recipient_id = users._id

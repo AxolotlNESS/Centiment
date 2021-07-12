@@ -16,5 +16,7 @@ router.get('/feed', userController.getFeed, (req, res) =>
   res.status(200).json([...res.locals.feed])
 );
 
-// router.post('/')
+// router.patch('/', userController.addPoints, userController.subtractPoints, (req, res) =>
+//res.status(200).json([...res.locals.feed])
+//);
 module.exports = router;
