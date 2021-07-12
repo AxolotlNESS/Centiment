@@ -74,12 +74,26 @@ class Home extends Component {
         recipient_id: this.state.rec._id,
         points: this.state.points,
         messages: this.state.msg, 
-        // datetime_created: this.state.datetime_created,
         sender_id: this.state.user._id,
-        recipient: this.state.rec,
       })
     })
-      .then()
+      .catch(err => console.log('Error in get feed: ', err))
+      fetch("/api/users", {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'Application/JSON'
+        },
+        body: JSON.stringify({
+          recipient_id: this.state.rec._id,
+          points: this.state.points,
+          sender_id: this.state.user._id,
+        })
+      })
+      this.setState({
+        msg: "",
+        points: 0,
+        rec: this.state.potRec[0]
+      })
   }
 
   render() {
@@ -116,6 +130,7 @@ class Home extends Component {
             <label> Recipients </label>
             <select
               name="Recipients"
+              value={this.state.rec.name}
               onChange={(e) => this.recipChange(e.target.value)}
             >
               {potRecc}

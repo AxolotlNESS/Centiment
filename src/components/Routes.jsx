@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home.js';
-import Team from './pages/Team.js';
+import login from './pages/login.js';
 
 
 class Routes extends Component  {
@@ -9,7 +9,7 @@ class Routes extends Component  {
   return (
     <Switch> {/* The Switch decides which component to show based on the current URL.*/}
       <Route exact path='/' component={Home}></Route>
-      {/* <Route exact path='/Team' component={Team}></Route> */}
+      <Route exact path='/login' component={login}></Route>
     </Switch>
   );
   }

@@ -7,7 +7,7 @@ class Navbar extends Component  {
   <nav>
     <ul>
       <li><NavLink to='/'>Home</NavLink></li>
-      {/* <li><NavLink to='/Team'>Team</NavLink></li> */}
+      <li ><NavLink to='/login'>Login</NavLink></li>
     </ul>
   </nav>
     )
