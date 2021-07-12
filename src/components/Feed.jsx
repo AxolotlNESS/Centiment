@@ -8,7 +8,7 @@ class Feed extends Component {
     }
     return (
       <div>
-        {feedItems}
+        {feedItems.reverse()}
       </div>
     )
   }
