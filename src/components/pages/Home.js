@@ -12,9 +12,9 @@ class Home extends Component {
       ],
       msg: "",
       points: 0,
-      user: {name: "Spencer", _id: 3},
-      rec: {},
+      user: {name: "Sean", _id: 3},
       potRec: [{"_id":1,"name":"Nick"},{"_id":2,"name":"Emma"},{"_id":3,"name":"Sean"}],
+      rec: {"_id":1,"name":"Nick"},
     };
   }
 
@@ -56,13 +56,17 @@ class Home extends Component {
   }
 
   recipChange(recip) {
-    console.log(recip);
+    let newRecip = this.state.potRec.filter(obj => {
+      return obj._id == recip
+    })
+    console.log(newRecip)
     this.setState({
-      rec: recip,
+      rec: newRecip[0],
     });
   }
 
   submit(e){
+    console.log("current state.rec " + this.state.rec._id)
     e.preventDefault();
     fetch("/api/feed", {
       method: 'POST',
@@ -78,6 +82,12 @@ class Home extends Component {
       })
     })
       .catch(err => console.log('Error in get feed: ', err))
+      let newFeedItem = {sender:this.state.user.name, messages: this.state.msg, recipient: this.state.rec.name}
+      let oldFeed = this.state.currentFeed
+      oldFeed.push(newFeedItem)
+      this.setState({
+        currentFeed: oldFeed
+      })
       fetch("/api/users", {
         method: 'PATCH',
         headers: {
@@ -92,14 +102,13 @@ class Home extends Component {
       this.setState({
         msg: "",
         points: 0,
-        rec: this.state.potRec[0]
       })
-  }
+    }
 
   render() {
     const potRecc = [];
     this.state.potRec.forEach((el) => {
-      potRecc.push(<option value={el.name} id={el._id}> {el.name} </option>);
+      potRecc.push(<option value={el._id} id={el._id}> {el.name} </option>);
     });
     return (
       <div className="Home">
@@ -130,7 +139,7 @@ class Home extends Component {
             <label> Recipients </label>
             <select
               name="Recipients"
-              value={this.state.rec.name}
+              // value={this.state.rec.name}
               onChange={(e) => this.recipChange(e.target.value)}
             >
               {potRecc}
