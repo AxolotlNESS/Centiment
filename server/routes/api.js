@@ -16,7 +16,15 @@ router.get('/feed', userController.getFeed, (req, res) =>
   res.status(200).json([...res.locals.feed])
 );
 
-// router.patch('/', userController.addPoints, userController.subtractPoints, (req, res) =>
-//res.status(200).json([...res.locals.feed])
-//);
+router.post('/feed', userController.postFeed, (req, res) =>
+  res.status(200).json(res.locals.shoutoutFeed)
+);
+
+router.patch(
+  '/users',
+  userController.addPoints,
+  userController.subtractPoints,
+  (req, res) => res.status(200).send('Something happened. Yay!')
+);
+
 module.exports = router;
