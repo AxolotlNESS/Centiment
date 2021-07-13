@@ -13,7 +13,11 @@ router.get('/', userController.getRecipients, (req, res) =>
 
 // console.log(userController.getFeed());
 router.get('/feed', userController.getFeed, (req, res) =>
-  res.status(200).json([...res.locals.feed])
+  res.status(200).json([...res.locals.users])
+);
+
+router.patch('/users', userController.addPoints, userController.subtractPoints, (req, res) =>
+res.status(200).json([...res.locals.users])
 );
 
 // router.post('/')

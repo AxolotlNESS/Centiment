@@ -14,6 +14,8 @@ app.use(express.static(path.resolve(__dirname, '../src')));
 //   //go back and console log res.locals.recipients
 //   res.status(200).json([...res.locals.recipients])
 // );
+
+
 app.use('/api', apiRouter);
 
 app.listen(PORT, () => {

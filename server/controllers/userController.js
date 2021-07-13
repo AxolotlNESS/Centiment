@@ -22,6 +22,7 @@ userController.getRecipients = (req, res, next) => {
       });
     });
 };
+
 userController.getFeed = (req, res, next) => {
   console.log('Do we enter getRecipients function?');
   const feedQuery =
@@ -42,6 +43,22 @@ userController.getFeed = (req, res, next) => {
       });
     });
 };
+
+userController.addPoints = (req, res, next) => {
+  const addPointsQuery = 'UPDATE users SET points = points + $1 WHERE _id = 1'
+  db.query(addPointsQuery)
+  .then((data) => {
+    
+  })
+}
+
+userController.subtractPoints = (req, res, next) => {
+  const addPointsQuery = 'UPDATE users SET points = points + $1 WHERE _id = 1'
+  db.query(addPointsQuery)
+  .then((data) => {
+
+  })
+}
 // console.log(JSON.stringify(userController));
 // console.log(userController.getRecipients);
 module.exports = userController;
