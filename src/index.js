@@ -5,6 +5,8 @@ import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
+// This is where the magic happens
+// Simply has our router which lets us switch pages and our app
 render(
     <BrowserRouter>
       <App />

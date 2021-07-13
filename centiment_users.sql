@@ -9,9 +9,11 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-
+-- This is our SQL page where we create the layour of our two tables
+-- We currently have two tables one for our users and one for our 
+-- shoutouts
 CREATE TABLE public.users (
-	"_id" serial NOT NULL,
+	"_id" serial UNIQUE NOT NULL,
 	"name" varchar NOT NULL,
 	"points" integer NOT NULL,
     "username" varchar NOT NULL,
@@ -21,25 +23,26 @@ CREATE TABLE public.users (
   OIDS=FALSE
 );
 
+-- here ID should def be non null, we tried making it auto generate 
+-- unique values to no avail
 CREATE TABLE public.shoutouts (
-	"_id" serial NOT NULL,
+	"_id" serial,
     "sender" varchar NOT NULL,
-    "recipient_id" serial NOT NULL,
+    "recipient_id" integer NOT NULL,
 	"points" integer NOT NULL,
   "messages" varchar NOT NULL,
-    "datetime_created" integer,
-    "sender_id" serial NOT NULL,
+    "sender_id" integer NOT NULL,
 	CONSTRAINT "shoutouts_pk" PRIMARY KEY ("_id")
 ) WITH (
   OIDS=FALSE
 );
 
-
+-- populating our database with data
 INSERT INTO public.users VALUES (1, 'Nick', 100, 'nick123', '123');
 
 INSERT INTO public.users VALUES (2, 'Emma', 100, 'emma123', '1234');
 
-INSERT INTO public.users VALUES (3,'Sean',100, 'sean123', '12345');
+INSERT INTO public.users VALUES (3,'Sean', 100, 'sean123', '12345');
 
 INSERT INTO public.users VALUES (4, 'Spencer', 100, 'spencer123', '123456');
 
@@ -83,6 +86,6 @@ INSERT INTO public.users VALUES (4, 'Spencer', 100, 'spencer123', '123456');
 
 -- INSERT INTO public.users VALUES (24, 'Olivia', 100);
 
-INSERT INTO public.shoutouts VALUES (1, 'Emma', 4, 20,'Very cool',5,2);
+INSERT INTO public.shoutouts VALUES (1, 'Emma', 4, 20,'Very cool', 2);
 
 -- SELECT *, users.name AS recipient FROM shoutouts LEFT JOIN users ON shoutouts.recipient_id = users._id
