@@ -11,7 +11,7 @@ userController.newUser = (req, res, next) => {
   const newUserQuery = `INSERT INTO users (_id, name, points, username, password)
   VALUES ($1, $2, $3, $4, $5)`;
   const params = [_id, name, 100, username, password];
-  // query
+  // query to add new user
   db.query(newUserQuery, params)
     .then((result) => {
       res.locals.userTable = result.rows[0];
@@ -69,10 +69,7 @@ userController.getRecipients = (req, res, next) => {
     });
 };
 
-<<<<<<< HEAD
-=======
 // get all feed items, which are stored in our shoutouts table
->>>>>>> 35676cea499f3d3822c5fcde814cc7dc644f9c5b
 userController.getFeed = (req, res, next) => {
   const feedQuery =
     'SELECT shoutouts.*, public.users.name AS recipient FROM shoutouts LEFT JOIN users ON shoutouts.recipient_id = users._id';
@@ -92,23 +89,6 @@ userController.getFeed = (req, res, next) => {
     });
 };
 
-userController.addPoints = (req, res, next) => {
-  const addPointsQuery = 'UPDATE users SET points = points + $1 WHERE _id = 1'
-  db.query(addPointsQuery)
-  .then((data) => {
-    
-  })
-}
-
-userController.subtractPoints = (req, res, next) => {
-  const addPointsQuery = 'UPDATE users SET points = points + $1 WHERE _id = 1'
-  db.query(addPointsQuery)
-  .then((data) => {
-
-  })
-}
-// console.log(JSON.stringify(userController));
-// console.log(userController.getRecipients);
 // middleware function executes post request, adds item to feed 
 // when user hits submit on frontend
 userController.postFeed = (req, res, next) => {
