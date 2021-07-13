@@ -1,44 +1,58 @@
 import React, { Component } from 'react';
 
 class Create extends Component {
+  submit(e) {
+    e.preventDefault();
+    console.log(e);
+    // fetch('/api/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'Application/JSON',
+    //   },
+    //   body: JSON.stringify({
+    //     sender: this.state.user.name,
+    //     recipient_id: this.state.rec._id,
+    //     points: this.state.points,
+    //     messages: this.state.msg,
+    //     sender_id: this.state.user._id,
+    //     recipient: this.state.rec,
+    //   }),
+    // }).catch((err) => console.log('Error in get feed: ', err));
+  }
+
   render() {
     return (
-      <div class='container'>
+      <div className='container'>
         <div>
-          <form>
+          <form method='POST' action='/api/create'>
             <label>Username</label>
-            <input type='username' id='usr' name ='usr'>
-
-            </input>
+            <input type='username' id='usr' name='username'></input>
             <br />
-            <label>
-              Password
-            </label>
+            <label>Password</label>
             <input
               type='password'
               id='psw'
-              name='psw'
+              name='password'
               pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
               title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters'
-            >
-            </input>
+            ></input>
             <br />
-            <input type='submit' value='Submit'></input>
+            <input type='submit' value='Create account'></input>
           </form>
         </div>
 
         <div id='message'>
           <h3>Password must contain the following:</h3>
-          <p id='letter' class='invalid'>
+          <p id='letter' className='invalid'>
             A <b>lowercase</b> letter
           </p>
-          <p id='capital' class='invalid'>
+          <p id='capital' className='invalid'>
             A <b>capital (uppercase)</b> letter
           </p>
-          <p id='number' class='invalid'>
+          <p id='number' className='invalid'>
             A <b>number</b>
           </p>
-          <p id='length' class='invalid'>
+          <p id='length' className='invalid'>
             Minimum <b>8 characters</b>
           </p>
         </div>

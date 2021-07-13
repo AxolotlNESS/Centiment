@@ -3,6 +3,7 @@ const db = require('../models/userModels');
 const userController = {};
 
 userController.newUser = (req, res, next) => {
+  console.log("running new user")
   const { _id, name, username, password } = req.body;
   const newUserQuery = `INSERT INTO users (_id, name, points, username, password)
   VALUES ($1, $2, $3, $4, $5)`;
@@ -25,6 +26,7 @@ userController.newUser = (req, res, next) => {
 };
 
 userController.checkUser = (req, res, next) => {
+  console.log("running check user")
   // console.log('Do we enter getRecipients function?');
   const userQuery =
     'SELECT username, password FROM users WHERE username = $1 AND password = $2';
@@ -49,6 +51,7 @@ userController.checkUser = (req, res, next) => {
 };
 
 userController.getRecipients = (req, res, next) => {
+  console.log("running get recipients")
   // console.log('Do we enter getRecipients function?');
   const recipQuery = 'SELECT _id, name FROM users';
   // console.log('string of recipQuery: ' + recipQuery);
@@ -69,14 +72,15 @@ userController.getRecipients = (req, res, next) => {
     });
 };
 userController.getFeed = (req, res, next) => {
-  console.log('Do we enter getRecipients function?');
+  console.log("running get feed")
+  // console.log('Do we enter getRecipients function?');
   const feedQuery =
     'SELECT shoutouts.*, public.users.name AS recipient FROM shoutouts LEFT JOIN users ON shoutouts.recipient_id = users._id';
   db.query(feedQuery)
     .then((data) => {
-      console.log('we did it! cool');
+      // console.log('we did it! cool');
       res.locals.feed = data.rows;
-      console.log('list of names: ' + res.locals.feed);
+      // console.log('list of names: ' + res.locals.feed);
       return next();
     })
     .catch((err) => {
@@ -90,6 +94,7 @@ userController.getFeed = (req, res, next) => {
 };
 
 userController.postFeed = (req, res, next) => {
+  console.log("running post feed")
   const { sender, recipient_id, points, messages, sender_id } = req.body;
   const queryPostToFeed = `INSERT INTO shoutouts (sender, recipient_id, points, messages, sender_id) 
     VALUES ($1, $2, $3, $4, $5)`;
@@ -112,6 +117,7 @@ userController.postFeed = (req, res, next) => {
 };
 
 userController.addPoints = (req, res, next) => {
+  console.log("running add points")
   const { recipient_id, points } = req.body;
   const addPointsQuery = 'UPDATE users SET points = points + $1 WHERE _id = $2';
   const params = [points, recipient_id];
@@ -131,6 +137,7 @@ userController.addPoints = (req, res, next) => {
 };
 
 userController.subtractPoints = (req, res, next) => {
+  console.log("running sub points")
   const { sender_id, points } = req.body;
   const subtractPointsQuery =
     'UPDATE users SET points = points - $1 WHERE _id = $2';

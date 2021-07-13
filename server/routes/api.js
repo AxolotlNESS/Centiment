@@ -32,7 +32,7 @@ router.post('/create', userController.newUser, (req, res) =>
 );
 
 router.get('/login', userController.checkUser, (req, res) =>
-  res.status(200).json(res.locals.users)
+  res.status(200).json(res.locals.users).redirect('/')
 );
 
 module.exports = router;
