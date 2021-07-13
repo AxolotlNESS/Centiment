@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
 import Feed from '../Feed.jsx';
 
+// this is our home page, where the magic happens
 class Home extends Component {
   constructor() {
     super();
 
+    // some state data is hard coded in for testing purposes
+    // this will all be updated on render pending a successful request
+    // to our backend
+    // only thing that is still hard coded in on render will be current 
+    // user, since we do not have the sign in feature working yet
     this.state = {
+      // feed items
       currentFeed: [
         { sender: 'Spencer', messages: 'thank you', recipient: 'Nick' },
       ],
+      // current message being typed in input box
       msg: '',
+      // current points selected to send
       points: 0,
+      // user who is currently interacting with interface
       user: { name: 'Sean', _id: 3 },
+      // potenetial reciepients. This is the drop down list of people
+      // who you can send points to
       potRec: [
         { _id: 1, name: 'Nick' },
         { _id: 2, name: 'Emma' },
         { _id: 3, name: 'Sean' },
       ],
+      // the currently selected reciepients, who points will be sent to
+      // upon button click
       rec: { _id: 1, name: 'Nick' },
     };
   }
 
+  // when component mounts
   componentDidMount() {
+    // get potential receipients
     fetch('/api')
       .then((res) => res.json())
       .then((potentialRec) => {
@@ -32,6 +48,7 @@ class Home extends Component {
       .catch((err) =>
         console.log('Error in get potentential reciepients: ', err)
       );
+    // get feed items
     fetch('/api/feed')
       .then((res) => res.json())
       .then((feed) => {
@@ -42,6 +59,7 @@ class Home extends Component {
       .catch((err) => console.log('Error in get feed: ', err));
   }
 
+  // when user types in message box update msg state property
   textChange(text) {
     this.setState({
       msg: text,
@@ -49,6 +67,8 @@ class Home extends Component {
     console.log(this.state.msg);
   }
 
+  // when user selects new point total update state points attribute
+  // (select is an option which can be selected)
   pointChange(int) {
     if (int === 'Select') {
       this.setState({
@@ -60,7 +80,11 @@ class Home extends Component {
       });
   }
 
+  // update state when recipient is changed 
   recipChange(recip) {
+    // since only user id is passed through we get the whole user object
+    // (both user's name and id) by filtering from our potential recipients
+    // state item
     let newRecip = this.state.potRec.filter((obj) => {
       return obj._id == recip;
     });
@@ -70,9 +94,12 @@ class Home extends Component {
     });
   }
 
+  // a lot happens when the user hits the submit button
   submit(e) {
     console.log('current state.rec ' + this.state.rec._id);
+    // prevent page from reload
     e.preventDefault();
+    // post request to feed (adds to database)
     fetch('/api/feed', {
       method: 'POST',
       headers: {
@@ -86,6 +113,9 @@ class Home extends Component {
         sender_id: this.state.user._id,
       }),
     }).catch((err) => console.log('Error in get feed: ', err));
+    // this chunk of code updates the state so that the new message 
+    // renders immediately
+    // there is certainly a better way to do this
     let newFeedItem = {
       sender: this.state.user.name,
       messages: this.state.msg,
@@ -96,6 +126,7 @@ class Home extends Component {
     this.setState({
       currentFeed: oldFeed,
     });
+    // this patch request updates the two users point totals in the database
     fetch('/api/users', {
       method: 'PATCH',
       headers: {
@@ -107,6 +138,7 @@ class Home extends Component {
         sender_id: this.state.user._id,
       }),
     });
+    // reinitialize state data
     this.setState({
       msg: '',
       points: 0,
@@ -114,7 +146,10 @@ class Home extends Component {
   }
 
   render() {
+    // create potential reciepients array
     const potRecc = [];
+    // push each value from our state to it, passing down the id
+    // along with it
     this.state.potRec.forEach((el) => {
       potRecc.push(
         <option value={el._id} id={el._id}>

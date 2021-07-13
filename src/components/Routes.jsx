@@ -4,6 +4,7 @@ import Home from './pages/Home.js';
 import login from './pages/login.js';
 import create from './pages/create.js';
 
+// handles the logic when navbar elements are clieked
 class Routes extends Component  {
   render() {
   return (

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+
+// our login page, this needs some work, as it does not currently connect
+// with our backend
 class Login extends Component {
   // constructor() {
   //   super();

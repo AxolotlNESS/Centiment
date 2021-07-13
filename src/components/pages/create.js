@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// our create user component
+// our backend works on postman but this component does not currently 
+// connenct properly
 class Create extends Component {
   render() {
     return (
@@ -8,7 +11,6 @@ class Create extends Component {
           <form>
             <label>Username</label>
             <input type='username' id='usr' name ='usr'>
-
             </input>
             <br />
             <label>

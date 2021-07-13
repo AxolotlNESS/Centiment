@@ -9,7 +9,9 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-
+-- This is our SQL page where we create the layour of our two tables
+-- We currently have two tables one for our users and one for our 
+-- shoutouts
 CREATE TABLE public.users (
 	"_id" serial UNIQUE NOT NULL,
 	"name" varchar NOT NULL,
@@ -21,6 +23,8 @@ CREATE TABLE public.users (
   OIDS=FALSE
 );
 
+-- here ID should def be non null, we tried making it auto generate 
+-- unique values to no avail
 CREATE TABLE public.shoutouts (
 	"_id" serial,
     "sender" varchar NOT NULL,
@@ -33,7 +37,7 @@ CREATE TABLE public.shoutouts (
   OIDS=FALSE
 );
 
-
+-- populating our database with data
 INSERT INTO public.users VALUES (1, 'Nick', 100, 'nick123', '123');
 
 INSERT INTO public.users VALUES (2, 'Emma', 100, 'emma123', '1234');

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
+// our navbar which links to our three pages
 class Navbar extends Component  {
   render() {
     return (
