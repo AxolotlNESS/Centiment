@@ -1,3 +1,4 @@
+/* here's our CSS page, we whipped this together quickly */
 html {
   box-sizing: border-box;
 }
@@ -11,15 +12,132 @@ html {
 }
 
 .app {
+  display: flex;
   width: 960px;
   margin: 0 auto;
   padding: 20px;
 }
 
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: auto;
+  border: 10px;
+  width: 50%;
+  background-color: Violet;
+}
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: auto;
+  border: 10px;
+  width: 50%;
+}
+
+button {
+  display: inline-block;
+  padding: 0.5em 3em;
+  border: 0.16em solid #ffffff;
+  margin: 0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #000000;
+  text-align: center;
+  transition: all 0.15s;
+  /* background-color:#08B6CE;
+  color: white; */
+}
+
+input {
+  display: inline-block;
+  padding: 0.5em 3em;
+  /* border: 0.16em solid #ffffff; */
+  border: solid 1px;
+  margin: 0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #000000;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+
+/* input {
+  padding: 10px;
+  border: 10px;
+  margin: 10px;
+} */
+
+#theFeed {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 50px auto;
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+}
+label {
+  padding: 10px;
+  margin: 10px;
+  border: 10px;
+}
+#feedItem {
+  position: relative;
+  width: 550px;
+  height: 80px;
+  background-color: aliceblue;
+  border: 2px solid dimgrey;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#shoutoutText {
+  height: 5px;
+  text-decoration: italic;
+  color: rgb(1, 1, 17);
+}
+
 nav ul {
   list-style: none;
   display: flex;
-  background-color: darkcyan;
+  background-color: slategray;
   margin-bottom: 20px;
 }
 

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
+
+// our login page, this needs some work, as it does not currently connect
+// with our backend
 class Login extends Component {
   render() {
     return (
       <div className='Login'>
         <header className='App-header'></header>
         <center>
-          <div className='header'>
+          <div className='header-login'>
             <h1>Login</h1>
             <hr />
             <br />

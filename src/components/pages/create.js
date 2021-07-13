@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// our create user component
+// our backend works on postman but this component does not currently 
+// connenct properly
 class Create extends Component {
   submit(e) {
     e.preventDefault();
@@ -26,7 +29,12 @@ class Create extends Component {
         <div>
           <form method='POST' action='/api/create'>
             <label>Username</label>
+<<<<<<< HEAD
             <input type='username' id='usr' name='username'></input>
+=======
+            <input type='username' id='usr' name ='usr'>
+            </input>
+>>>>>>> 35676cea499f3d3822c5fcde814cc7dc644f9c5b
             <br />
             <label>Password</label>
             <input
